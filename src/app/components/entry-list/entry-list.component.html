@@ -1,0 +1,29 @@
+<div class="entries-page">
+  <div class="entries-container">
+    <header class="entries-header">
+      <a routerLink="/journal" class="new-btn">+ New Entry</a>
+      <h1>Journal Entries</h1>
+    </header>
+
+    <div *ngIf="entries.length === 0" class="empty-state">
+      <p>No entries yet. Write your first journal entry!</p>
+      <a routerLink="/journal" class="new-btn">Create Entry</a>
+    </div>
+
+    <div class="entries-list" *ngIf="entries.length > 0">
+      <article *ngFor="let entry of entries" class="entry-card" (click)="openEntry(entry)">
+        <div class="entry-card__inner">
+          <div class="entry-header">
+            <time class="entry-date">{{ formatDate(entry.date) }}</time>
+            <span class="entry-mood">{{ entry.mood | titlecase }}</span>
+          </div>
+          <p class="entry-description">{{ entry.description }}</p>
+          <div class="entry-meta">
+            <span class="updated">Updated: {{ entry.updatedAt | date:'short' }}</span>
+          </div>
+        </div>
+        <button type="button" class="delete-btn" (click)="deleteEntry(entry.date); $event.stopPropagation()">Delete</button>
+      </article>
+    </div>
+  </div>
+</div>
