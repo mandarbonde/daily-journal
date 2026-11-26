@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { JournalService } from '../../services/journal.service';
 import { JournalEntry } from '../../models/journal-entry.model';
 
@@ -10,15 +10,21 @@ import { JournalEntry } from '../../models/journal-entry.model';
   templateUrl: './entry-list.component.html',
   styleUrls: ['./entry-list.component.scss']
 })
-export class EntryListComponent implements OnInit {
+export class EntryListComponent implements OnInit, OnDestroy {
   entries: JournalEntry[] = [];
+  private readonly destroy$ = new Subject<void>();
 
   constructor(private journalService: JournalService, private router: Router) {}
 
   ngOnInit(): void {
-    this.journalService.entries$.subscribe((entries) => {
+    this.journalService.entries$.pipe(takeUntil(this.destroy$)).subscribe((entries) => {
       this.entries = entries;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   formatDate(isoDate: string): string {

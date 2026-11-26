@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { JournalService } from '../../services/journal.service';
-import { JournalEntry, MoodOption } from '../../models/journal-entry.model';
+import { MoodOption } from '../../models/journal-entry.model';
 
 const MOODS: MoodOption[] = [
   { value: 'happy', label: 'Happy', emoji: '😊' },
@@ -20,19 +20,19 @@ const MOODS: MoodOption[] = [
   templateUrl: './journal.component.html',
   styleUrls: ['./journal.component.scss']
 })
-export class JournalComponent implements OnInit {
+export class JournalComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   moods = MOODS;
   selectedMood = '';
   entryDate = '';
-  saving = false;
   editMode = false;
-  entryId = '';
+  private readonly destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
     private journalService: JournalService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -48,12 +48,22 @@ export class JournalComponent implements OnInit {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     this.entryDate = `${yyyy}-${mm}-${dd}`;
-    this.form.patchValue({ date: this.entryDate });
 
-    this.form.get('date')!.valueChanges.subscribe((date) => {
+    this.route.queryParamMap.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+      const date = params.get('date') || this.entryDate;
+      this.entryDate = date;
+      this.form.patchValue({ date });
+    });
+
+    this.form.get('date')!.valueChanges.pipe(takeUntil(this.destroy$)).subscribe((date) => {
       this.entryDate = date;
       this.loadEntryForDate(date);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   selectMood(value: string): void {
@@ -65,7 +75,6 @@ export class JournalComponent implements OnInit {
     const entry = this.journalService.getEntryByDate(date);
     if (entry) {
       this.editMode = true;
-      this.entryId = entry.id;
       this.selectedMood = entry.mood;
       this.form.patchValue({
         date: entry.date,
@@ -74,7 +83,6 @@ export class JournalComponent implements OnInit {
       });
     } else {
       this.editMode = false;
-      this.entryId = '';
       this.selectedMood = '';
       this.form.patchValue({
         date,
@@ -90,15 +98,9 @@ export class JournalComponent implements OnInit {
       return;
     }
 
-    this.saving = true;
     const { date, mood, description } = this.form.value;
     this.journalService.saveEntry({ date, mood, description });
     this.editMode = true;
-    this.entryId = this.journalService.getEntryByDate(date)!.id;
-    this.saving = false;
-
-    // Small feedback via router so user sees entry saved; navigate back to list optionally
-    // Keep user on editor but mark saved state handled by UI
   }
 
   goToEntries(): void {

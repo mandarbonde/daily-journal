@@ -53,14 +53,10 @@
 
       <div class="form-actions">
         <button type="button" class="btn btn-outline" (click)="goToEntries()">Cancel</button>
-        <button type="submit" class="btn btn-primary" [disabled]="saving || form.invalid">
-          {{ saving ? 'Saving…' : editMode ? 'Update Entry' : 'Save Entry' }}
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          {{ editMode ? 'Update Entry' : 'Save Entry' }}
         </button>
       </div>
     </form>
-
-    <div *ngIf="editMode && !saving" class="saved-hint">
-      Entry for {{ entryDate }} saved.
-    </div>
   </div>
 </div>

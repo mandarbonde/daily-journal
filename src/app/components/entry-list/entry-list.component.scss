@@ -1,11 +1,7 @@
 ﻿.entries-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  background: #ffffff;
   padding: 24px;
-}
-
-.page-enter {
-  animation: fadeInUp 0.55s ease-out both;
 }
 
 .entries-container {
@@ -85,6 +81,7 @@
 
 .entry-card {
   background: #ffffff;
+
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 20px 20px 20px 24px;
@@ -101,7 +98,7 @@
   transform: translateY(-4px);
   border-color: #3b82f6;
   box-shadow: 0 12px 28px rgba(59, 130, 246, 0.12);
-  background: #fbfdff;
+  background: #e0f2fe;
 }
 
 .entry-card:active {
@@ -180,16 +177,3 @@
   opacity: 1;
 }
 
-.empty-btn-link {
-  margin-top: 6px;
-  color: #3b82f6;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.empty-btn-link:hover {
-  color: #1d4ed8;
-  text-decoration: underline;
-}

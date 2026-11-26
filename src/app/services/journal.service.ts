@@ -38,11 +38,6 @@ export class JournalService {
     this.entriesSubject.next([...this.entries].sort((a, b) => b.date.localeCompare(a.date)));
   }
 
-  /** Get all entries, newest first. */
-  getAllEntries(): JournalEntry[] {
-    return [...this.entries].sort((a, b) => b.date.localeCompare(a.date));
-  }
-
   /** Get the entry for a specific date (YYYY-MM-DD), if any. */
   getEntryByDate(date: string): JournalEntry | undefined {
     return this.entries.find((e) => e.date === date);
