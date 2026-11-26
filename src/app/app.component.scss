@@ -6,17 +6,17 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #ffffff;
-  color: #1e293b;
+  background: var(--page-bg);
+  color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .app-shell {
-  background: #0f172a;
+  background: var(--nav-bg);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid var(--nav-border);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -36,14 +36,14 @@ html, body {
 .brand {
   font-size: 20px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--nav-text);
   text-decoration: none;
   letter-spacing: -0.02em;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .brand:hover {
-  color: #bfdbfe;
+  color: var(--nav-hover-text);
   transform: scale(1.03);
 }
 
@@ -55,7 +55,7 @@ html, body {
 .shell-nav a {
   font-size: 14px;
   font-weight: 500;
-  color: #cbd5e1;
+  color: var(--nav-text);
   text-decoration: none;
   padding: 8px 14px;
   border-radius: 8px;
@@ -63,20 +63,135 @@ html, body {
 }
 
 .shell-nav a:hover {
-  color: #ffffff;
-  background: #1e293b;
+  color: var(--nav-hover-text);
+  background: var(--nav-hover-bg);
 }
 
 .shell-nav a.active {
   font-weight: 600;
-  color: #ffffff;
-  background: #1e293b;
-  box-shadow: inset 0 0 0 1px #3b82f6;
+  color: var(--nav-hover-text);
+  background: var(--nav-hover-bg);
+  box-shadow: inset 0 0 0 1px var(--primary-color);
+}
+
+.theme-toggle {
+  width: 56px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px;
+  border: 1px solid var(--nav-border);
+  border-radius: 999px;
+  background: var(--subtle-bg);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.theme-toggle__icon {
+  z-index: 1;
+  width: 22px;
+  color: var(--primary-color);
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  transition: opacity 0.25s ease, transform 0.3s ease;
+}
+
+.theme-toggle__icon--sun {
+  opacity: 1;
+}
+
+.theme-toggle__icon--moon {
+  opacity: 0.55;
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-bg);
+  box-shadow: 0 1px 4px rgba(36, 27, 59, 0.22);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease;
+}
+
+.theme-toggle--dark .theme-toggle__track {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.theme-toggle--dark .theme-toggle__thumb {
+  transform: translateX(26px);
+}
+
+.theme-toggle--dark .theme-toggle__icon--sun {
+  opacity: 0.55;
+  transform: rotate(-25deg);
+}
+
+.theme-toggle--dark .theme-toggle__icon--moon {
+  opacity: 1;
+  transform: rotate(12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle__track,
+  .theme-toggle__icon,
+  .theme-toggle__thumb {
+    transition: none;
+  }
 }
 
 .app-main {
   min-height: calc(100vh - 56px);
   padding-bottom: 40px;
+}
+
+@media (max-width: 560px) {
+  .shell-container {
+    padding: 0 12px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+
+  .shell-nav {
+    gap: 0;
+  }
+
+  .shell-nav a {
+    padding: 8px;
+    font-size: 12px;
+  }
+
 }
 
 @keyframes fadeInUp {
