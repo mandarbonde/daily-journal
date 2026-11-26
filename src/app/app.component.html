@@ -5,6 +5,20 @@
       <a routerLink="/journal" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Today</a>
       <a routerLink="/entries" routerLinkActive="active">All Entries</a>
     </div>
+    <button
+      type="button"
+      class="theme-toggle"
+      [class.theme-toggle--dark]="isDarkTheme"
+      [attr.aria-label]="isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'"
+      [attr.aria-pressed]="isDarkTheme"
+      (click)="toggleTheme()"
+    >
+      <span class="theme-toggle__track" aria-hidden="true">
+        <span class="theme-toggle__icon theme-toggle__icon--sun">☀</span>
+        <span class="theme-toggle__icon theme-toggle__icon--moon">☾</span>
+        <span class="theme-toggle__thumb"></span>
+      </span>
+    </button>
   </div>
 </nav>
 

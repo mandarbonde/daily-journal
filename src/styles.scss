@@ -1,2 +1,48 @@
 ﻿/* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  color-scheme: light;
+  --page-bg: #FAF9FF;
+  --surface-bg: #ffffff;
+  --input-bg: #ffffff;
+  --primary-color: #7C3AED;
+  --primary-hover: #6D28D9;
+  --primary-rgb: 124, 58, 237;
+  --on-primary: #ffffff;
+  --text-primary: #241B3B;
+  --text-secondary: #514765;
+  --text-muted: #796F8C;
+  --heading-color: var(--primary-color);
+  --border-color: #E9E2F5;
+  --subtle-bg: #F3EDFF;
+  --hover-bg: #F3EDFF;
+  --nav-bg: #ffffff;
+  --nav-border: var(--border-color);
+  --nav-text: var(--text-secondary);
+  --nav-hover-text: var(--primary-color);
+  --nav-hover-bg: var(--subtle-bg);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --page-bg: #171324;
+  --surface-bg: #6b51aa;
+  --input-bg: #171324;
+  --primary-color: #A78BFA;
+  --primary-hover: #C4B5FD;
+  --primary-rgb: 167, 139, 250;
+  --on-primary: #171324;
+  --text-primary: #F5F3FF;
+  --text-secondary: #D0C9E0;
+  --text-muted: #A59DB7;
+  --heading-color: var(--primary-color);
+  --border-color: #3B3152;
+  --subtle-bg: #302544;
+  --hover-bg: #302544;
+  --nav-bg: var(--page-bg);
+  --nav-border: var(--border-color);
+  --nav-text: var(--text-secondary);
+  --nav-hover-text: var(--text-primary);
+  --nav-hover-bg: var(--surface-bg);
+}

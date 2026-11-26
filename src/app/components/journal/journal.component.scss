@@ -1,6 +1,6 @@
 ﻿.journal-page {
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--page-bg);
   padding: 24px;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .back-link {
-  color: #64748b;
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
@@ -30,8 +30,8 @@
 }
 
 .back-link:hover {
-  color: #1e3a8a;
-  background: #eff6ff;
+  color: var(--heading-color);
+  background: var(--subtle-bg);
   text-decoration: none;
   transform: translateX(-2px);
 }
@@ -40,7 +40,7 @@
   margin: 0;
   font-size: 26px;
   font-weight: 700;
-  color: #1e3a8a;
+  color: var(--heading-color);
   flex: 1;
   letter-spacing: -0.01em;
 }
@@ -48,20 +48,19 @@
 .date-badge {
   font-size: 13px;
   font-weight: 600;
-  color: #1e3a8a;
-  background: #dbeafe;
+  color: var(--heading-color);
+  background: var(--subtle-bg);
   padding: 5px 12px;
   border-radius: 20px;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);
 }
 
 .journal-form {
-  background: #ffffff;
+  background: var(--surface-bg);
   padding: 32px;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(59, 130, 246, 0.08);
-  border: 1px solid #e0f2fe;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(var(--primary-rgb), 0.08);
+  border: 1px solid var(--border-color);
   animation: fadeInUp 0.5s ease-out both;
 }
 
@@ -69,15 +68,11 @@
   margin-bottom: 22px;
 }
 
-.form-group:last-child {
-  margin-bottom: 8px;
-}
-
 .form-group label {
   display: block;
   font-size: 13px;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-secondary);
   margin-bottom: 8px;
   letter-spacing: 0.01em;
 }
@@ -86,18 +81,18 @@
   width: 100%;
   padding: 11px 14px;
   font-size: 15px;
-  border: 1.5px solid #cbd5e1;
+  border: 1.5px solid var(--border-color);
   border-radius: 10px;
   box-sizing: border-box;
-  background: #fff;
-  color: #1e293b;
+  background: var(--input-bg);
+  color: var(--text-primary);
   transition: all 0.2s ease;
 }
 
 .form-group input[type="date"]:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.12);
 }
 
 .form-group input[type="date"].invalid {
@@ -116,37 +111,23 @@
   align-items: center;
   gap: 6px;
   padding: 16px 8px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--border-color);
   border-radius: 14px;
-  background: #ffffff;
+  background: var(--surface-bg);
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-secondary);
   transition: all 0.18s ease;
   position: relative;
   overflow: hidden;
 }
 
-.mood-picker button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  opacity: 0;
-  transition: opacity 0.18s ease;
-  z-index: 0;
-}
-
 .mood-picker button:hover {
-  border-color: #3b82f6;
-  background: #ffffff;
+  border-color: var(--primary-color);
+  background: var(--surface-bg);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.14);
-}
-
-.mood-picker button:hover::before {
-  opacity: 1;
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.14);
 }
 
 .mood-picker button:active {
@@ -154,14 +135,10 @@
 }
 
 .mood-picker button.selected {
-  border-color: #3b82f6;
-  background: #dbeafe;
-  color: #1e40af;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
-}
-
-.mood-picker button.selected::before {
-  opacity: 1;
+  border-color: var(--primary-color);
+  background: var(--subtle-bg);
+  color: var(--heading-color);
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.18);
 }
 
 .mood-picker button.invalid {
@@ -171,26 +148,22 @@
 .mood-emoji {
   font-size: 26px;
   line-height: 1;
-  position: relative;
-  z-index: 1;
 }
 
 .mood-label {
   font-size: 12.5px;
   margin-top: 3px;
-  position: relative;
-  z-index: 1;
 }
 
 .form-group textarea {
   width: 100%;
   padding: 12px 14px;
   font-size: 15px;
-  border: 1.5px solid #cbd5e1;
+  border: 1.5px solid var(--border-color);
   border-radius: 10px;
   box-sizing: border-box;
-  background: #fff;
-  color: #1e293b;
+  background: var(--input-bg);
+  color: var(--text-primary);
   resize: vertical;
   min-height: 140px;
   transition: all 0.2s ease;
@@ -199,8 +172,8 @@
 
 .form-group textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.12);
 }
 
 .form-group textarea.invalid {
@@ -227,7 +200,7 @@
   gap: 10px;
   margin-top: 28px;
   padding-top: 20px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border-color);
 }
 
 .btn {
@@ -252,27 +225,27 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+  background: var(--primary-color);
+  color: var(--on-primary);
+  box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.35);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
+  background: var(--primary-hover);
+  box-shadow: 0 6px 18px rgba(var(--primary-rgb), 0.45);
   transform: translateY(-1px);
 }
 
 .btn-outline {
-  background: #fff;
-  color: #475569;
-  border-color: #cbd5e1;
+  background: var(--surface-bg);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
 }
 
 .btn-outline:hover {
-  border-color: #3b82f6;
-  color: #1e3a8a;
-  background: #eff6ff;
+  border-color: var(--primary-color);
+  color: var(--heading-color);
+  background: var(--subtle-bg);
   transform: translateY(-1px);
 }
 
