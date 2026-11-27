@@ -26,6 +26,14 @@
   letter-spacing: -0.01em;
 }
 
+.error-msg {
+  margin-bottom: 16px;
+  color: #ef4444;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
 .new-btn {
   display: inline-flex;
   align-items: center;
@@ -152,16 +160,14 @@
 }
 
 .delete-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: static;
+  align-self: flex-end;
   background: transparent;
   border: none;
   color: #94a3b8;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  opacity: 0;
   transition: all 0.2s ease;
   padding: 6px;
   border-radius: 6px;
@@ -171,9 +177,5 @@
   color: #ef4444;
   background: #fee2e2;
   text-decoration: none;
-}
-
-.entry-card:hover .delete-btn {
-  opacity: 1;
 }
 

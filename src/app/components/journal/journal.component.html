@@ -3,18 +3,24 @@
     <header class="journal-header">
       <a routerLink="/entries" class="back-link">← All Entries</a>
       <h1>{{ editMode ? 'Edit Entry' : 'New Entry' }}</h1>
-      <span class="date-badge">{{ entryDate }}</span>
+      <span class="date-badge">{{ entryDate | date:'dd MMM yyyy' }}</span>
     </header>
 
     <form [formGroup]="form" (ngSubmit)="onSave()" class="journal-form">
       <div class="form-group">
-        <label for="entry-date">Date</label>
-        <input
-          id="entry-date"
-          type="date"
-          formControlName="date"
-          [class.invalid]="form.get('date')?.invalid && form.get('date')?.touched"
-        />
+        <label for="entry-date-display">Date</label>
+        <div class="date-picker">
+          <input
+            id="entry-date-display"
+            class="date-picker__display"
+            type="text"
+            [value]="entryDate | date:'dd MMM yyyy'"
+            [class.invalid]="form.get('date')?.invalid && form.get('date')?.touched"
+            readonly
+          />
+          <button type="button" class="date-picker__button" (click)="openDatePicker()">Choose date</button>
+          <input #datePicker type="date" formControlName="date" class="date-picker__native" tabindex="-1" aria-hidden="true" />
+        </div>
       </div>
 
       <div class="form-group">
@@ -56,6 +62,10 @@
         <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
           {{ editMode ? 'Update Entry' : 'Save Entry' }}
         </button>
+      </div>
+      <div class="form-feedback">
+        <div *ngIf="saveError" class="error-msg" role="alert">{{ saveError }}</div>
+        <div *ngIf="saveSuccess" class="success-msg" role="status">{{ saveSuccess }}</div>
       </div>
     </form>
   </div>

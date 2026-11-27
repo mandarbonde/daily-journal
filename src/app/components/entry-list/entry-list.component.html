@@ -5,7 +5,11 @@
       <h1>Journal Entries</h1>
     </header>
 
-    <div *ngIf="entries.length === 0" class="empty-state">
+    <div *ngIf="loadError || deleteError" class="error-msg" role="alert">
+      {{ loadError || deleteError }}
+    </div>
+
+    <div *ngIf="entries.length === 0 && !loadError" class="empty-state">
       <p>No entries yet. Write your first journal entry!</p>
       <a routerLink="/journal" class="new-btn">Create Entry</a>
     </div>
@@ -19,10 +23,17 @@
           </div>
           <p class="entry-description">{{ entry.description }}</p>
           <div class="entry-meta">
-            <span class="updated">Updated: {{ entry.updatedAt | date:'short' }}</span>
+            <span class="updated">Updated: {{ entry.updatedAt | date:'dd MMM yyyy hh:mm a' }}</span>
           </div>
         </div>
-        <button type="button" class="delete-btn" (click)="deleteEntry(entry.date); $event.stopPropagation()">Delete</button>
+        <button
+          type="button"
+          class="delete-btn"
+          [attr.aria-label]="'Delete entry for ' + formatDate(entry.date)"
+          (click)="deleteEntry(entry.date); $event.stopPropagation()"
+        >
+          Delete
+        </button>
       </article>
     </div>
   </div>

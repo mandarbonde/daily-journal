@@ -12,6 +12,8 @@ import { JournalEntry } from '../../models/journal-entry.model';
 })
 export class EntryListComponent implements OnInit, OnDestroy {
   entries: JournalEntry[] = [];
+  loadError = '';
+  deleteError = '';
   private readonly destroy$ = new Subject<void>();
 
   constructor(private journalService: JournalService, private router: Router) {}
@@ -19,6 +21,16 @@ export class EntryListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.journalService.entries$.pipe(takeUntil(this.destroy$)).subscribe((entries) => {
       this.entries = entries;
+    });
+
+    this.journalService.loadEntries().pipe(takeUntil(this.destroy$)).subscribe({
+      next: () => {
+        this.loadError = '';
+      },
+      error: (error: unknown) => {
+        console.error('Failed to load journal entries', error);
+        this.loadError = 'Unable to load journal entries. Please check the backend connection.';
+      }
     });
   }
 
@@ -28,11 +40,10 @@ export class EntryListComponent implements OnInit, OnDestroy {
   }
 
   formatDate(isoDate: string): string {
-    return new Date(isoDate + 'T00:00:00').toLocaleDateString(undefined, {
-      weekday: 'short',
-      year: 'numeric',
+    return new Date(isoDate + 'T00:00:00').toLocaleDateString('en-GB', {
+      day: '2-digit',
       month: 'short',
-      day: 'numeric'
+      year: 'numeric'
     });
   }
 
@@ -44,6 +55,13 @@ export class EntryListComponent implements OnInit, OnDestroy {
     if (!confirm('Delete this journal entry? This cannot be undone.')) {
       return;
     }
-    this.journalService.deleteEntry(date);
+
+    this.deleteError = '';
+    this.journalService.deleteEntry(date).pipe(takeUntil(this.destroy$)).subscribe({
+      error: (error: unknown) => {
+        console.error('Failed to delete journal entry', error);
+        this.deleteError = 'Unable to delete the journal entry. Please try again.';
+      }
+    });
   }
 }
